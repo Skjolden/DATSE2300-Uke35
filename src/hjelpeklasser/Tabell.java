@@ -66,6 +66,26 @@ public class Tabell {   // Samleklasse for tabellmetoder
         return maks(a,0,a.length);     // kaller metoden over
     }
 
+    public static int[] nestMaks(int[] a)
+    {
+        if (a.length < 2) // må ha minst to verdier!
+            throw new IllegalArgumentException("a.length(" + a.length + ") < 2!");
+
+        int m = Tabell.maks(a);  // m er posisjonen til tabellens største verdi
+
+        Tabell.bytt(a,a.length-1,m);  // bytter om slik at den største kommer forrest
+
+        int k = Tabell.maks(a,0,a.length-1);
+
+        if (k == m) k = a.length - 1; // den nest største lå opprinnelig forrest
+
+        Tabell.bytt(a,a.length-1,m); // bytter tilbake
+
+        return new int[] {m,k};
+
+    } // nestMaks
+
+
     // min-metodene - se Oppgave 1 i Avsnitt 1.2.1
     public static int min(int[] a, int fra, int til) {
         /*if (fra < 0 || til > a.length || fra >= til) {
@@ -95,6 +115,14 @@ public class Tabell {   // Samleklasse for tabellmetoder
     // Metoden bytt(char[] c, int i, int j)
     public static void bytt(char[] a, int i, int j) {
         char temp = a[i]; a[i] = a[j]; a[j] = temp;
+    }
+
+    // Metoden sortering(int[] a)
+    public static void sortering(int[] a) {
+        for (int i = a.length; i > 1; i--) {
+            int m = Tabell.maks(a,0,i);
+            Tabell.bytt(a,i-1,m);
+        }
     }
 
     // Metoden skriv(int[] a, int fra, int til)
