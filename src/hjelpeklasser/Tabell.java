@@ -86,6 +86,36 @@ public class Tabell {   // Samleklasse for tabellmetoder
     } // nestMaks
 
 
+    // Metode for nestMaksTurnering(int[] a)            Programkode 1.2.13 a)
+    public static int[] nestMaksTurnering(int[] a)   // en turnering
+    {
+        int[] indeks = nestMaks(a);
+        int im = indeks[0], inm = indeks[1];
+        int n = a.length;                // for å forenkle notasjonen
+
+        if (n < 2) // må ha minst to verdier!
+            throw new IllegalArgumentException("a.length(" + n + ") < 2!");
+
+        int[] b = new int[2*n];          // turneringstreet
+        System.arraycopy(a,0,b,n,n);     // legger a bakerst i b
+
+        for (int k = 2*n-2; k > 1; k -= 2)   // lager turneringstreet
+            b[k/2] = Math.max(b[k],b[k+1]);
+
+        int maksverdi = b[1], nestmaksverdi = Integer.MIN_VALUE;
+
+        for (int m = 2*n - 1, k = 2; k < m; k *= 2)
+        {
+            int tempverdi = b[k+1];  // ok hvis maksverdi er b[k]
+            if (maksverdi != b[k]) { tempverdi = b[k]; k++; }
+            if (tempverdi > nestmaksverdi) nestmaksverdi = tempverdi;
+        }
+
+        return new int[] {maksverdi,nestmaksverdi,im,inm}; // størst og nest størst
+
+    } // nestMaksTurnering
+
+
     // min-metodene - se Oppgave 1 i Avsnitt 1.2.1
     public static int min(int[] a, int fra, int til) {
         /*if (fra < 0 || til > a.length || fra >= til) {
@@ -158,6 +188,14 @@ public class Tabell {   // Samleklasse for tabellmetoder
         skrivln(a, 0, a.length);
     }
 
+    // Metoden kopier(int[] a, int i, int[] b, int j, int ant)
+    // Kopierer fra tabell a, posisjon i inn i tabell b, posisjon j. ant antall tall fra og med i
+    // https://www.geeksforgeeks.org/system-arraycopy-in-java/
+    public static void kopier(int[] a, int i, int[] b, int j, int ant)
+    {
+        for (int n = i + ant; i < n; ) b[j++] = a[i++];
+    }
+
     // Metoden fraTilKontroll(int tablengde, int fra, int til)  Programkode 1.2.3 a)
     public static void fraTilKontroll(int[] a, int tablengde, int fra, int til)
     {
@@ -204,6 +242,5 @@ public class Tabell {   // Samleklasse for tabellmetoder
     IndexOutOfBoundsException,  NoSuchElementException
     InvalidParameterException,  NumberFormatException
     */
-
 
 }

@@ -11,13 +11,29 @@ public class Program {
 
         int[] b = Tabell.nestMaks(a);  // metoden returnerer en tabell
 
-        int m1 = b[0], nm = b[1];       // m1 for maks, nm for nestmaks
+        int mb = b[0], nmb = b[1];       // m1 for maks, nm for nestmaks
 
         Tabell.skrivln(a);        // se Oppgave 5 i Avsnitt 1.2.2
-        System.out.print("Storst(" + a[m1] + ") har posisjon " + m1);
-        System.out.println(", nest storst(" + a[nm] + ") har posisjon " + nm);
+        System.out.print("Storst(" + a[mb] + ") har posisjon " + mb);
+        System.out.println(", nest storst(" + a[nmb] + ") har posisjon " + nmb);
 
-        Tabell.sortering(a);
-        Tabell.skrivln(a);
+        int[] c = Tabell.nestMaksTurnering(a);
+        System.out.print("Storst i turnering er (" + c[0] + ") har posisjon " + c[2]);
+        System.out.println(", nest storst (" + c[1] + ") har posisjon " + c[3]);
+
+        int[] d = Tabell.randPerm(5);
+        Tabell.skrivln(d);
+        int[] e = new int[15];
+        //Kopierer d først i e
+        Tabell.kopier(d,0,e,0,d.length);
+        Tabell.skrivln(e);
+
+        //Kopierer d bakerst i e
+        Tabell.kopier(d,0,e,e.length - d.length,d.length);
+        Tabell.skrivln(e);
+
+        //Kopierer d på midten av e
+        Tabell.kopier(d,0,e,(e.length - d.length)/2,d.length);
+        Tabell.skrivln(e);
     }
 }
