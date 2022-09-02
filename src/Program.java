@@ -10,12 +10,14 @@ public class Program {
         System.out.println("\nStorste verdi ligger pa plass " + m);
 
 
-        int [] b = {2};
+        int [] b = {2, 3};
         Tabell.skriv(a, 0, 1);
         Tabell.skriv(a);
         System.out.println();
         Tabell.skrivln(a, 0, 1);
         Tabell.skrivln(a);
         System.out.print("hei");
+
+        Tabell.skrivln(b, 0, 1);
     }
 }

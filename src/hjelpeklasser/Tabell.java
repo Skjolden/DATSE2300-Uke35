@@ -1,6 +1,7 @@
 package hjelpeklasser;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Tabell {   // Samleklasse for tabellmetoder
@@ -40,9 +41,11 @@ public class Tabell {   // Samleklasse for tabellmetoder
 
     // Metoden maks(int[] a, int fra, int til)   Programkode 1.2.1 b)
     public static int maks(int[] a, int fra, int til) {
-        if (fra < 0 || til > a.length || fra >= til) {
+        /*if (fra < 0 || til > a.length || fra >= til) {
             throw new IllegalArgumentException("Illegalt intervall!");
         }
+        Erstattet av:*/
+        fraTilKontroll(a,a.length,fra,til);
 
         int m = fra;              // indeks til største verdi i a[fra:til>
         int maksverdi = a[fra];   // største verdi i a[fra:til>
@@ -65,9 +68,11 @@ public class Tabell {   // Samleklasse for tabellmetoder
 
     // min-metodene - se Oppgave 1 i Avsnitt 1.2.1
     public static int min(int[] a, int fra, int til) {
-        if (fra < 0 || til > a.length || fra >= til) {
+        /*if (fra < 0 || til > a.length || fra >= til) {
             throw new IllegalArgumentException("Illegalt intervall!");
         }
+        Erstattet av:*/
+        fraTilKontroll(a,a.length,fra,til);
 
         int m = fra;                // indeks til minste verdi i a[fra:til>
         int minverdi = a[fra];      // minste verdi i a[fra:til>
@@ -94,9 +99,11 @@ public class Tabell {   // Samleklasse for tabellmetoder
 
     // Metoden skriv(int[] a, int fra, int til)
     public static void skriv(int[] a, int fra, int til) {
-        if (fra < 0 || til > a.length || fra >= til) {
+        /*if (fra < 0 || til > a.length || fra >= til) {
             throw new IllegalArgumentException("Illegalt intervall!");
         }
+        Erstattet av:*/
+        fraTilKontroll(a,a.length,fra,til);
 
         for (int i = fra; i < til; i++) {
             if (i < til-1) {
@@ -122,4 +129,53 @@ public class Tabell {   // Samleklasse for tabellmetoder
     public static void skrivln(int[] a) {
         skrivln(a, 0, a.length);
     }
+
+    // Metoden fraTilKontroll(int tablengde, int fra, int til)  Programkode 1.2.3 a)
+    public static void fraTilKontroll(int[] a, int tablengde, int fra, int til)
+    {
+        if (a == null)                                // a er null
+            throw new NullPointerException
+                    ("parametertabellen a er null");
+
+        if (fra < 0)                                  // fra er negativ
+            throw new ArrayIndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new ArrayIndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + tablengde + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+
+        if (fra == til)
+            throw new NoSuchElementException
+                    ("fra(" + fra + ") = til(" + til + ") - tomt tabellintervall!");
+    }
+
+    // Metoden vhKontroll(int tablengde, int v, int h)          Programkode 1.2.3 d)
+    public static void vhKontroll(int tablengde, int v, int h)
+    {
+        if (v < 0)
+            throw new ArrayIndexOutOfBoundsException("v(" + v + ") < 0");
+
+        if (h >= tablengde)
+            throw new ArrayIndexOutOfBoundsException
+                    ("h(" + h + ") >= tablengde(" + tablengde + ")");
+
+        if (v > h + 1)
+            throw new IllegalArgumentException
+                    ("v = " + v + ", h = " + h);
+    }
+
+    /*
+    Forskjellige unntaksklasser fra java
+    NullPointerException,  IllegalArgumentException,  IllegalStateException,
+    ArrayIndexOutOfBoundsException,  StringIndexOutOfBoundsException,
+    IndexOutOfBoundsException,  NoSuchElementException
+    InvalidParameterException,  NumberFormatException
+    */
+
+
 }
